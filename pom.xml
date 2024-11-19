@@ -75,6 +75,23 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
+<dependency>
+    <groupId>com.itextpdf</groupId>
+    <artifactId>kernel</artifactId>
+    <version>7.2.3</version>
+</dependency>
+<dependency>
+    <groupId>com.itextpdf</groupId>
+    <artifactId>layout</artifactId>
+    <version>7.2.3</version>
+</dependency>
+
 	</dependencies>
 
 	<build>
@@ -94,6 +111,7 @@
 		</plugins>
 	</build>
 	<repositories>
+	
 		<repository>
 			<id>spring-snapshots</id>
 			<name>Spring Snapshots</name>
@@ -102,6 +120,12 @@
 				<enabled>false</enabled>
 			</releases>
 		</repository>
+
+		<repository>
+			<id>itext</id>
+			<url>https://repo.itextsupport.com/releases</url>
+		</repository>
+
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
