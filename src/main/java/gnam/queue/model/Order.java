@@ -14,6 +14,7 @@ package gnam.queue.model;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.UUID;
 
 public class Order implements Serializable{
 
@@ -21,6 +22,7 @@ public class Order implements Serializable{
     private String deliveryAddress;
     private List<OrderItem> items;
     private double totalPrice;
+    private UUID id;
 
     // Costruttore
     public Order(String customerName, String deliveryAddress, List<OrderItem> items) {
@@ -31,6 +33,13 @@ public class Order implements Serializable{
     }
 
     // Getters e Setters
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
     public String getCustomerName() {
         return customerName;
     }
