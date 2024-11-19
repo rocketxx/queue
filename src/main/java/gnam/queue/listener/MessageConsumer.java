@@ -9,7 +9,13 @@ public class MessageConsumer {
     // Il metodo ascolta i messaggi dalla coda 'test-queue'
     @RabbitListener(queues = "test-queue")
     public void receiveMessage(String message) {
-        // Stampa il messaggio con la frase "Messaggio ricevuto:"
-        System.out.println("Messaggio ricevuto: " + message);
+        String transformedMessage = transformMessage(message);
+        System.out.println("Messaggio ricevuto: " + transformedMessage);
     }
+    private String transformMessage(String message) {
+        // Converte la stringa in maiuscolo e aggiunge uno spazio tra ogni lettera
+        return message.toUpperCase().replaceAll("", " ").trim();
+    }
+
+    
 }
