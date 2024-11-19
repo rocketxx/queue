@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import gnam.queue.model.Order;
+import gnam.queue.model.OrderRequest;
 import gnam.queue.services.EmailService;
 import gnam.queue.services.PdfGeneratorService;
 
@@ -18,13 +19,15 @@ public class OrderConsumer {
     private EmailService emailService;
 
     @RabbitListener(queues = "order-queue")
-    public void receiveOrder(Order order) {
+    public void receiveOrder(OrderRequest  orderRequest) {
         try {
+            Order order = orderRequest.getOrder();
             // 1. Genera il PDF dell'ordine
             byte[] pdfContent = pdfGeneratorService.generateOrderPdf(order);
 
+            String email = orderRequest.getEmail();
             // 2. Crea e invia l'email con l'allegato PDF
-            sendEmailWithPdf(order, pdfContent);
+            sendEmailWithPdf(email,order, pdfContent);
 
             // Log di conferma
             System.out.println("Ordine ricevuto e email inviata per: " + order.getCustomerName());
@@ -34,11 +37,11 @@ public class OrderConsumer {
         }
     }
 
-    private void sendEmailWithPdf(Order order, byte[] pdfContent) {
+    private void sendEmailWithPdf(String email,Order order, byte[] pdfContent) {
         // 3. Parametri per l'email
-        String emailRecipient = "william97.ragusa@gmail.com"; // Mock email
-        String subject = "Conferma Ordine - " + order.getCustomerName();
-        String body = "In allegato trovi i dettagli del tuo ordine.";
+        String emailRecipient = email; 
+        String subject = "Ordine Ricevuto - " + order.getCustomerName();
+        String body = "In allegato trovi i dettagli dell'ordine.";
 
         // 4. Invio email
         emailService.sendOrderEmail(
